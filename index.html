@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Đơn xin nghỉ phép</title>
+    <script type="module">
+        // Import SDK Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+        // Cấu hình Firebase của bạn
+        const firebaseConfig = {
+            apiKey: "AIzaSyA4QDzMwgn2_HdhMEXQLBGsByw8gSKA10",
+            authDomain: "donnghiphep-khoinguyen.firebaseapp.com",
+            projectId: "donnghiphep-khoinguyen",
+            storageBucket: "donnghiphep-khoinguyen.appspot.com",
+            messagingSenderId: "916950661625",
+            appId: "1:916950661625:web:34ee1a01fa6c074cf06528",
+            databaseURL: "https://donnghiphep-khoinguyen-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
+        // Khởi tạo Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Gửi đơn
+        function guiDon() {
+            const hoTen = document.getElementById("hoTen").value;
+            const boPhan = document.getElementById("boPhan").value;
+            const chucVu = document.getElementById("chucVu").value;
+            const tNgay = document.getElementById("tNgay").value;
+            const dNgay = document.getElementById("dNgay").value;
+            const lyDo = document.getElementById("lyDo").value;
+
+            const donRef = push(ref(db, "donNghiPhep"));
+            set(donRef, {
+                hoTen: hoTen,
+                bophan: boPhan,
+                chucvu: chucVu,
+                tngay: tNgay,
+                dngay: dNgay,
+                lyDo: lyDo,
+                ngayGui: new Date().toISOString(),
+            }).then(() => {
+                alert("Gửi đơn thành công!");
+            }).catch((error) => {
+                alert("Lỗi: " + error.message);
+            });
+        }
+
+        window.guiDon = guiDon;
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input,
+        select,
+        textarea,
+        button {
+            width: 300px;
+            padding: 8px;
+            margin-top: 4px;
+        }
+
+        button {
+            width: 120px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Đơn xin nghỉ phép</h2>
+    <label>Họ tên:</label>
+    <input type="text" id="hoTen"><br>
+
+    <label>Bộ phận:</label>
+    <select name="bophan" id="boPhan" required>
+        <option value="">-- Chọn bộ phận --</option>
+        <option>CƠ ĐỘNG CHUYỀN 1</option>
+        <option>CANH TÓC CHUYỀN 1</option>
+        <option>CỤM LÓT CHUYỀN 1</option>
+        <option>CỤM LẮP RÁP CHUYỀN 1</option>
+        <option>CỤM THÂN CHÍNH 1 CHUYỀN 1</option>
+        <option>CỤM THÂN CHÍNH 2 CHUYỀN 1</option>
+        <option>CỤM THÀNH PHẨM CHUYỀN 1</option>
+        <option>CƠ ĐỘNG CHUYỀN 2</option>
+        <option>CANH TÓC CHUYỀN 2</option>
+        <option>CỤM LÓT CHUYỀN 2</option>
+        <option>CỤM LẮP RÁP CHUYỀN 2</option>
+        <option>CỤM THÂN CHÍNH 1 CHUYỀN 2</option>
+        <option>CỤM THÂN CHÍNH 2 CHUYỀN 2</option>
+        <option>CỤM THÀNH PHẨM CHUYỀN 2</option>
+        <option>CƠ ĐỘNG CHUYỀN 4</option>
+        <option>CỤM LÓT CHUYỀN 4</option>
+        <option>CỤM LẮP RÁP CHUYỀN 4</option>
+        <option>CỤM THÂN CHÍNH 1 CHUYỀN 4</option>
+        <option>CỤM THÂN CHÍNH 2 CHUYỀN 4</option>
+        <option>CỤM THÀNH PHẨM CHUYỀN 4</option>
+        <option>CƠ ĐỘNG NHÀ MÁY</option>
+        <option>KHO THÀNH PHẨM ÁO</option>
+        <option>PACKING</option>
+        <option>KỸ THUẬT ÁO</option>
+        <option>KCS CHUYỀN 1</option>
+        <option>KCS CHUYỀN 2</option>
+        <option>KCS CHUYỀN 4</option>
+        <option>BẢO VỆ NM</option>
+        <option>VSCN XƯỞNG ÁO</option>
+        <option>CƠ ĐIỆN ÁO</option>
+        <option>TỔ ỦI CHUYỀN 1</option>
+        <option>TỔ ỦI CHUYỀN 2</option>
+        <option>TỔ ỦI CHUYỀN 4</option>
+        <option>QUẢN LÝ CẮT</option>
+        <option>CẮT TỰ ĐỘNG</option>
+        <option>TỔ CẮT 1</option>
+        <option>TỔ CẮT 2</option>
+        <option>TỔ CẮT 4</option>
+        <option>TỔ ÉP KEO ÁO</option>
+        <option>KHO PHỤ LIỆU</option>
+        <option>KHO NGUYÊN LIỆU</option>
+        <option>KIỂM VẢI</option>
+    </select><br>
+
+    <label>Chức vụ:</label>
+    <input type="text" name="chucvu" id="chucVu" required><br>
+
+    <label>Từ ngày:</label>
+    <input type="date" name="tungay" id="tNgay" required><br>
+
+    <label>Đến ngày:</label>
+    <input type="date" name="denngay" id="dNgay" required><br>
+
+    <label>Lý do:</label>
+    <textarea name="lydo" rows="4" id="lyDo" required></textarea><br>
+
+    <button onclick="guiDon()">Gửi đơn</button>
+</body>
+
+</html>
